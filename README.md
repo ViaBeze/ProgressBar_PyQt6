@@ -41,7 +41,7 @@ def sizeHint(self):<br>
 
 Example of use:<br>
 ```python
-progress_bar = RoundedProgressBar()
+progress_bar = NormalProgressBarr()
 
 layout.addWidget(progress_bar)
 ```
