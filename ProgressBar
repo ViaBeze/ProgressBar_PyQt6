@@ -1,0 +1,90 @@
+from PyQt6.QtWidgets import (QWidget, QSizePolicy)
+from PyQt6.QtCore import QRectF, pyqtProperty, QSize
+from PyQt6.QtGui import QBrush, QPainter, QColor, QPainterPath
+
+class NormalProgressBar(QWidget):
+    def __init__(self, parent=None, radius=10):
+        super().__init__(parent)
+        self._value = 0
+        self._minimum = 0
+        self._maximum = 500
+        self._radius = radius
+        self._bar_color = QColor(255, 255, 255)  # Белый цвет для заполнения
+        self._bg_color = QColor(0, 0, 0)  # Черный цвет для фона
+        self.setMinimumWidth(500)
+        self.setMinimumHeight(28)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+
+    def sizeHint(self):
+        return QSize(-1, 28)
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+
+        rect = self.rect()
+        bar_rect = rect.adjusted(2, 2, -2, -2)  # Отступы для рамки
+
+        # Рисуем фон
+        path = QPainterPath()
+        path.addRoundedRect(QRectF(rect), self._radius, self._radius)
+        painter.fillPath(path, QBrush(self._bg_color))
+
+        # Рассчитываем ширину заполнения
+        progress_width = (self._value - self._minimum) / (self._maximum - self._minimum) * bar_rect.width()
+        progress_rect = QRectF(bar_rect.x(), bar_rect.y(), progress_width, bar_rect.height())
+
+        # Рисуем заполнение
+        path = QPainterPath()
+        path.addRoundedRect(progress_rect, self._radius, self._radius)
+        painter.fillPath(path, QBrush(self._bar_color))
+
+    def setValue(self, value):
+        self._value = value
+        self.update()
+
+    def value(self):
+        return self._value
+
+    def setMinimum(self, minimum):
+        self._minimum = minimum
+        self.update()
+
+    def minimum(self):
+        return self._minimum
+
+    def setMaximum(self, maximum):
+        self._maximum = maximum
+        self.update()
+
+    def maximum(self):
+        return self._maximum
+
+    def setBarColor(self, color):
+        self._bar_color = color
+        self.update()
+
+    def barColor(self):
+        return self._bar_color
+
+    def setBgColor(self, color):
+        self._bg_color = color
+        self.update()
+
+    def bgColor(self):
+        return self._bg_color
+
+    def setRadius(self, radius):
+        self._radius = radius
+        self.update()
+
+    def radius(self):
+        return self._radius
+
+    value = pyqtProperty(int, fget=value, fset=setValue)
+    minimum = pyqtProperty(int, fget=minimum, fset=setMinimum)
+    maximum = pyqtProperty(int, fget=maximum, fset=setMaximum)
+    barColor = pyqtProperty(QColor, fget=barColor, fset=setBarColor)
+    bgColor = pyqtProperty(QColor, fget=bgColor, fset=setBgColor)
+    radius = pyqtProperty(int, fget=radius, fset=setRadius)
