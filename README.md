@@ -16,10 +16,10 @@ It became:
 
 <br>
 How to modify to suit yourself:<br>
-'''
+```
 self._minimum = 0 <-- set minimum value
 self._maximum = 500 <-- set maximum value
-'''
+```
 <br>
     
 So you can set fixed or minimal size:<br>
