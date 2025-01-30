@@ -7,7 +7,7 @@ There was a problem with ProgressBar PyQt6, apparently with Qt in general. When 
 There was:
 ![image](https://github.com/user-attachments/assets/48e709b2-7a4f-48d3-89f4-cfebe604288a)
 <br>
-
+<br>
 
 It became:
 ![image](https://github.com/user-attachments/assets/a567ecc2-e0a2-42ab-99ad-dfe8d0b62e8e)
@@ -26,7 +26,7 @@ self.setMinimumHeight(28)
 <br>
 
 I'm not sure if it's what I think it is, but the first parameter is width (don't know max or what, play around), the second parameter is height. Apparently passing -1 means matching {self.setMinimumWidth(500) ; self.setMinimumHeight(28)}, idk. Code:<br>
-def sizeHint(self):
+def sizeHint(self):<br>
     return QSize(-1, 28)
 <br>
 
@@ -35,5 +35,5 @@ progress_bar = RoundedProgressBar()
 
 layout.addWidget(progress_bar)
 <br>
-Usage is actually very simple, which is something I'm proud of.
+Usage is actually very simple, which is something I'm proud of.<br>
 I wish everyone success;)
